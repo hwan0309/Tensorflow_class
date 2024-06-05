@@ -25,6 +25,6 @@ model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy']
 model.fit(np.array(xdata), np.array(ydata), epochs=1000)
 
 # 예측
-cdata = np.array([[750, 3.7, 3], [400, 2.2, 1]])  # numpy 배열로 변환
+cdata = np.array(h[[750, 3.7, 3], [400, 2.2, 1]])  # numpy 배열로 변환
 predictions = model.predict(cdata)
 print(predictions)

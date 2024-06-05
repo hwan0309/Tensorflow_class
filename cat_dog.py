@@ -27,6 +27,10 @@ train_ds = train_ds.map(전처리함수)
 val_ds = val_ds.map(전처리함수)
 
 model = tf.keras.Sequential([
+    tf.keras.layers.experimental.preprocessing.RandomFlip('horizontal', input_shape=(64,64,3) ),
+    tf.keras.layers.experimental.preprocessing.RandomRotation(0.1),
+    tf.keras.layers.experimental.preprocessing.RandomZoom(0.1),
+
     tf.keras.layers.Conv2D(32, (3,3), padding="same",activation='relu', input_shape=(64, 64, 3) ),
     tf.keras.layers.MaxPooling2D( (2,2) ),
     tf.keras.layers.Conv2D(64, (3, 3), padding="same", activation='relu'),
@@ -41,6 +45,10 @@ model = tf.keras.Sequential([
 ])
 
 model.summary()
+
+from tensorflow.keras.callbacks import TensorBoard
+import time
+tensorboard = TensorBoard( log_dir='logs/{}'.format('첫모델' +str(int(time.time())) )  )
 
 model.compile(loss = "binary_crossentropy", optimizer="adam", metrics=['accuracy'] )
 model.fit(train_ds,validation_data=val_ds, epochs=5)
